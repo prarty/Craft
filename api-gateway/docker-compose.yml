@@ -1,0 +1,7 @@
+api-gateway:
+  build:
+    context: ./api-gateway  # Path to your API Gateway Dockerfile
+  ports:
+    - "8765:8765"
+  environment:
+    - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/

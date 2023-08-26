@@ -1,0 +1,33 @@
+server:
+  port: 8765
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: profile-service
+          uri: lb://PROFILE-SERVICE
+          predicates:
+            - Path=/profile/**
+          filters:
+            - RequestIDFilter
+            - AuthenticationFilter
+            - AuthorisationFilter
+
+        - id: onboarding-service
+          uri: lb://ONBOARDING-SERVICE
+          predicates:
+            - Path=/onboard/**
+          filters:
+            - RequestIDFilter
+            - AuthenticationFilter
+            - AuthorisationFilter
+
+  application:
+    name: API-GATEWAY
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
+

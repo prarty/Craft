@@ -1,0 +1,19 @@
+server:
+  port: 9003
+  servlet:
+    context-path: /onboard
+
+
+spring:
+  application:
+    name: ONBOARDING-SERVICE
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/onboarding
+      auto-index-creation: true
+      database: onboarding
+
+logging:
+  level:
+    org.springframework.data.mongodb.core: DEBUG

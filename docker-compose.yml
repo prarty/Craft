@@ -1,0 +1,34 @@
+version: '1'
+services:
+  naming-service:
+    build:
+      context: ./naming-server  # Path to your Naming Service Dockerfile
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+  api-gateway:
+    build:
+      context: ./api-gateway  # Path to your API Gateway Dockerfile
+    depends_on:
+      - naming-service
+    ports:
+      - "8765:8765"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+
+  profile-management-service:
+    build:
+      context: ./profile-management  # Path to your Profile Management Service Dockerfile
+    ports:
+      - "9002:9002"
+    depends_on:
+      - api-gateway
+
+  onboarding-service:
+    build:
+      context: ./onboarding-service  # Path to your Profile Management Service Dockerfile
+    ports:
+      - "9003:9003"
+    depends_on:
+      - api-gateway
