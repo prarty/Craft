@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/driver")
+@RequestMapping(path = "/driver/")
 public class OnboardingController {
 
     private final OnboardingService onboardingService;

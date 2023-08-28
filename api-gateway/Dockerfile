@@ -5,7 +5,7 @@ FROM openjdk:17-alpine
 WORKDIR /app
 
 # Copy the built JAR file of your API Gateway service into the container
-COPY build/libs/api-gateway-0.0.1-SNAPSHOT.jar /app/api-gateway.jar
+COPY /build/libs/api-gateway-0.0.1-SNAPSHOT.jar /app/api-gateway.jar
 
 # Expose the port that the API Gateway service will run on
 EXPOSE 8765

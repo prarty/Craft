@@ -1,34 +1,36 @@
-version: '1'
+version: '3'
 services:
-  naming-service:
-    build:
-      context: ./naming-server  # Path to your Naming Service Dockerfile
+  naming-server:
+    build: ./naming-server  # Path to your Naming Service Dockerfile
+    image: craft-naming-server:latest
     ports:
       - "8761:8761"
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+#    environment:
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
   api-gateway:
-    build:
-      context: ./api-gateway  # Path to your API Gateway Dockerfile
+    build: ./api-gateway  # Path to your API Gateway Dockerfile
+    image: craft-api-gateway:latest
     depends_on:
-      - naming-service
+      - naming-server
     ports:
       - "8765:8765"
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+#    environment:
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
 
   profile-management-service:
-    build:
-      context: ./profile-management  # Path to your Profile Management Service Dockerfile
+    build: ./profile-management  # Path to your Profile Management Service Dockerfile
+    image: profile-management:latest
     ports:
       - "9002:9002"
     depends_on:
-      - api-gateway
+#      - api-gateway
+      - naming-server
 
-  onboarding-service:
-    build:
-      context: ./onboarding-service  # Path to your Profile Management Service Dockerfile
-    ports:
-      - "9003:9003"
-    depends_on:
-      - api-gateway
+#  onboarding-service:
+#    build:
+#      context: ./onboarding-service  # Path to your Profile Management Service Dockerfile
+#    ports:
+#      - "9003:9003"
+#    depends_on:
+#      - api-gateway
+#      - naming-server
